@@ -13,4 +13,4 @@ Requires DiSKY (4.8.0) and Skript (latest)
 
 > DiSKY: https://github.com/DiSkyOrg/DiSky
 
-Install the .sk file as a regular skript, and configure the settings at the top of the file.
+Install the .sk file as a regular skript then configure the settings at the top of the file.
