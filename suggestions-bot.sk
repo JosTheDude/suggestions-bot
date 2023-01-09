@@ -32,7 +32,7 @@ define new bot named "SuggestionsBot":
 
 discord command !suggestions-panel:
 	trigger:
-		event-bot is "SuggestionsBot"
+		event-bot is bot "SuggestionsBot"
 		if event-member has discord role with id "{@AdminRole}":
 			create a new message and store it in {_msg}:
 
