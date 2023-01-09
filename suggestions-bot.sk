@@ -1,12 +1,38 @@
 options:
+	discordBotToken: "CONFIGURE-THIS" # DISCORD BOT TOKEN
 	SuggestionsChannel: CONFIGURE-THIS # WHERE SUGGESTIONS WILL GO
 	AdminRole: CONFIGURE-THIS # GENERAL ADMINSTRATION ROLE (role required to post the suggestions panel)
 	SuggestionsEmbedTitle: "Suggestions"
 	SuggestionsEmbedDescription: "Want to help improve the server? This panel allows you to suggest something for our developers, admins, and owners to look over to possibly add in a future update to the server!%nl%%nl%Click below to create a suggestion!"
 	SuggestionsEmbedFooter: "Suggestions Bot by Dank JosBot#1001"
 
+define new bot named "SuggestionsBot": 
+    
+    # The bot's token, small reminder that it MUST be private!
+	token: {@discordBotToken}
+    
+    # Gateway intents enabled, others that are not listed here will be disabled.
+    # If you're not sure about that, leave it as 'default intents'.
+	intents: default intents
+    
+    # Advanced bot option, defining websocket, connection and privacy parameters.
+    # Here again, if you're not sure about that, leave it as shown below.
+	policy: all
+	auto reconnect: true
+	compression: none
+    
+    # Optional section code:
+    # Fired once the bot, and all guilds, are ready-to-use.
+	on ready:
+		send "&7Suggestions Bot is ready!" to console
+    # Fired once a guild, and all its members, are ready-to-use
+	on guild ready:
+		send "&7Suggestions Bot is ready for guild use!" to console
+
+
 discord command !suggestions-panel:
 	trigger:
+		event-bot is "SuggestionsBot"
 		if event-member has discord role with id "{@AdminRole}":
 			create a new message and store it in {_msg}:
 
@@ -25,7 +51,7 @@ discord command !suggestions-panel:
 			reply with "You cannot do this!"
 			stop
 
-on button click:
+on button click seen by "SuggestionsBot":
 	if discord id of event-button is "suggestion":
 		set {_modal} to new modal with id "suggestion-menu" named "Create New Suggestion"
 
@@ -47,7 +73,7 @@ on button click:
 		# opening a modal will defer the interaction too
 		show {_modal} to the user
 
-on modal click:
+on modal click seen by "SuggestionsBot":
 	if event-string is "suggestion-menu":
 		set {_val1} to value of textinput with id "suggestion-type"
 		set {_val2} to value of textinput with id "suggestion-text"
