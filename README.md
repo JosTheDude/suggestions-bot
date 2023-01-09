@@ -1,5 +1,5 @@
 # Suggestions Bot
-Simple Suggestions Bot done in Skript (DiSKY)
+Simple Suggestions Discord Bot done in Skript (DiSKY)
 
 Commands:
 
